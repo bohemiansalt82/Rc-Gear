@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"9d3e5f1b-77c8-4a52-9988-f1a2b3c4d5e6",
+	"author":	"Antigravity",
+	"description":	{
+		"":	"벨트 스펙 기반 정밀 역계산 풀리 생성기"
+	},
+	"version":	"1.0.0",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
