@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"827c1f83-e192-4217-9876-c56782993001",
+	"author":	"Antigravity",
+	"description":	{
+		"":	"S3M 타이밍 풀리 생성기 애드인"
+	},
+	"version":	"1.0.0",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}

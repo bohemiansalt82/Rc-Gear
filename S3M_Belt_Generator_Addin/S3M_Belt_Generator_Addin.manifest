@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"465b8393-559d-4767-9653-a16982992987",
+	"author":	"Antigravity",
+	"description":	{
+		"":	"STD S3M 벨트 생성기 애드인"
+	},
+	"version":	"1.0.0",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
