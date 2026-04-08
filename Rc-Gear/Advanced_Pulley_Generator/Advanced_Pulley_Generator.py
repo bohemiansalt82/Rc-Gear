@@ -154,18 +154,19 @@ class AdvancedPulleyExecuteHandler(adsk.core.CommandEventHandler):
         try:
             inputs = args.firingEvent.sender.commandInputs
             
-            pld_val = inputs.itemById('pld').value * 10
             pitch_val = inputs.itemById('pitch').value * 10
+            tooth_h_val = inputs.itemById('tooth_h').value * 10
+            total_h_val = inputs.itemById('total_h').value * 10
             
-            # PLD 자동 계산 로직 (0 입력 시)
-            if pld_val == 0:
-                # S-시리즈 표준 근사치 적용
-                pld_val = pitch_val * 0.085 # 8mm -> 0.68mm, 3mm -> 0.25mm
+            # PLD 자동 계산 (전체 높이와 이빨 높이의 차이 기반 역계산)
+            # 심지(Cord)는 보통 등면(Backing) 두께의 약 30% 지점에 위치함
+            backing_thick = total_h_val - tooth_h_val
+            pld_val = backing_thick * 0.305 # S8M 기준 2.25mm -> 0.686mm 근사치
             
             params = {
                 'shape_type': inputs.itemById('shape_type').selectedItem.name,
                 'pitch': pitch_val,
-                'tooth_h': inputs.itemById('tooth_h').value * 10,
+                'tooth_h': tooth_h_val,
                 'pld': pld_val,
                 'clearance': inputs.itemById('clearance').value * 10,
                 'teeth': inputs.itemById('teeth').valueOne,
@@ -193,8 +194,7 @@ class AdvancedPulleyCreatedHandler(adsk.core.CommandCreatedEventHandler):
         
         group1.children.addValueInput('pitch', '피치 (Pitch, mm)', 'mm', adsk.core.ValueInput.createByReal(0.8)) # 8mm
         group1.children.addValueInput('tooth_h', '이빨 높이 (mm)', 'mm', adsk.core.ValueInput.createByReal(0.305))
-        pld_input = group1.children.addValueInput('pld', '피치라인 오프셋 (0=자동계산, mm)', 'mm', adsk.core.ValueInput.createByReal(0.0686))
-        pld_input.tooltip = '모를 경우 0을 입력하면 피치에 맞춰 자동 계산됩니다.'
+        group1.children.addValueInput('total_h', '벨트 전체 높이 (mm)', 'mm', adsk.core.ValueInput.createByReal(0.53))
         
         # 2. 풀리 공차 및 설계 그룹
         group2 = inputs.addGroupCommandInput('pulley_grp', '2. 풀리 공차 및 설계')
